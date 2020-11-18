@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "5956899460",
+    "firebase_url": "https://aeygiffarine-25a3a.firebaseio.com",
+    "project_id": "aeygiffarine-25a3a",
+    "storage_bucket": "aeygiffarine-25a3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5956899460:android:858f9d7c3618a25abe68d1",
+        "android_client_info": {
+          "package_name": "com.giffarinefactory.aeygiffarine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5956899460-d8v5spib8p6q72megh26rd244d6ghmgu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8oy5lTBSkZ8DDlCH_81FZ4NCY7EbTqEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5956899460-d8v5spib8p6q72megh26rd244d6ghmgu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

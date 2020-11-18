@@ -1,4 +1,9 @@
+
+
+import 'package:aeygiffarine/state/my_service.dart';
 import 'package:aeygiffarine/state/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +13,28 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkStatus();
+  }
+
+  Future<Null> checkStatus() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseAuth.instance.authStateChanges().listen((event) {
+        if (event != null) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Myservice(),
+              ),
+              (route) => false);
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
