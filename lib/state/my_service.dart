@@ -1,5 +1,7 @@
 import 'package:aeygiffarine/models/user_model.dart';
 import 'package:aeygiffarine/state/authen.dart';
+import 'package:aeygiffarine/state/information.dart';
+import 'package:aeygiffarine/state/show_list_post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +14,7 @@ class Myservice extends StatefulWidget {
 
 class _MyserviceState extends State<Myservice> {
   UserModel userModel;
+  Widget currentWidget = ShowListPost();
 
   @override
   void initState() {
@@ -44,6 +47,7 @@ class _MyserviceState extends State<Myservice> {
     return Scaffold(
       appBar: AppBar(),
       drawer: buildDrawer(),
+      body: currentWidget,
     );
   }
 
@@ -77,6 +81,9 @@ class _MyserviceState extends State<Myservice> {
       title: Text('Show List Post'),
       subtitle: Text('Show Post All'),
       onTap: () {
+        setState(() {
+          currentWidget = ShowListPost();
+        });
         Navigator.pop(context);
       },
     );
@@ -92,6 +99,9 @@ class _MyserviceState extends State<Myservice> {
       title: Text('Information'),
       subtitle: Text('Display Information of user Logined'),
       onTap: () {
+        setState(() {
+          currentWidget = Information();
+        });
         Navigator.pop(context);
       },
     );
