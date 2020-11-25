@@ -1,5 +1,6 @@
 import 'package:aeygiffarine/models/user_model.dart';
 import 'package:aeygiffarine/state/authen.dart';
+import 'package:aeygiffarine/state/ebook.dart';
 import 'package:aeygiffarine/state/information.dart';
 import 'package:aeygiffarine/state/show_list_post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -66,6 +67,8 @@ class _MyserviceState extends State<Myservice> {
                   thickness: 3,
                   color: Colors.green,
                 ),
+                buildListTileEbook(),
+                Divider(),
               ],
             ),
           ],
@@ -104,6 +107,25 @@ class _MyserviceState extends State<Myservice> {
         setState(() {
           currentWidget = Information();
           title = 'Information';
+        });
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  ListTile buildListTileEbook() {
+    return ListTile(
+      leading: Icon(
+        Icons.book,
+        size: 36,
+        color: Colors.green,
+      ),
+      title: Text('EBook'),
+      subtitle: Text('Display Ebook'),
+      onTap: () {
+        setState(() {
+          currentWidget = Ebook();
+          title = 'Ebook';
         });
         Navigator.pop(context);
       },

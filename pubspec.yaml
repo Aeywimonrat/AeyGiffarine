@@ -37,6 +37,8 @@ dependencies:
   firebase_storage: ^5.0.1
   image_picker: ^0.6.7+14
   intl: ^0.16.1
+  firebase_messaging: ^7.0.3
+  flutter_plugin_pdf_viewer: ^1.0.7
 
 dev_dependencies:
   flutter_test:

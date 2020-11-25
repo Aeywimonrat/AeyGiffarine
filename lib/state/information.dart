@@ -28,7 +28,11 @@ class _InformationState extends State<Information> {
             .collection('user')
             .doc(uid)
             .snapshots()
-            .listen((event) {});
+            .listen((event) {
+          setState(() {
+            userModel = UserModel.fromMap(event.data());
+          });
+        });
       });
     });
   }
@@ -36,7 +40,8 @@ class _InformationState extends State<Information> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('This is Show Information'),
-    );
+        body: userModel == null
+            ? Center(child: CircularProgressIndicator())
+            : Text(userModel.name));
   }
 }
