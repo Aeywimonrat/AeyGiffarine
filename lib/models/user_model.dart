@@ -7,14 +7,15 @@ class UserModel {
   final String password;
   final String lat;
   final String lng;
+  final String urlAvatar;
   UserModel({
     this.name,
     this.email,
     this.password,
     this.lat,
     this.lng,
+    this.urlAvatar,
   });
-  
 
   UserModel copyWith({
     String name,
@@ -22,6 +23,7 @@ class UserModel {
     String password,
     String lat,
     String lng,
+    String urlAvatar,
   }) {
     return UserModel(
       name: name ?? this.name,
@@ -29,6 +31,7 @@ class UserModel {
       password: password ?? this.password,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
+      urlAvatar: urlAvatar ?? this.urlAvatar,
     );
   }
 
@@ -39,6 +42,7 @@ class UserModel {
       'password': password,
       'lat': lat,
       'lng': lng,
+      'urlAvatar': urlAvatar,
     };
   }
 
@@ -51,6 +55,7 @@ class UserModel {
       password: map['password'],
       lat: map['lat'],
       lng: map['lng'],
+      urlAvatar: map['urlAvatar'],
     );
   }
 
@@ -60,7 +65,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(name: $name, email: $email, password: $password, lat: $lat, lng: $lng)';
+    return 'UserModel(name: $name, email: $email, password: $password, lat: $lat, lng: $lng, urlAvatar: $urlAvatar)';
   }
 
   @override
@@ -72,7 +77,8 @@ class UserModel {
       o.email == email &&
       o.password == password &&
       o.lat == lat &&
-      o.lng == lng;
+      o.lng == lng &&
+      o.urlAvatar == urlAvatar;
   }
 
   @override
@@ -81,6 +87,7 @@ class UserModel {
       email.hashCode ^
       password.hashCode ^
       lat.hashCode ^
-      lng.hashCode;
+      lng.hashCode ^
+      urlAvatar.hashCode;
   }
 }

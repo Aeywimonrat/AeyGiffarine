@@ -2,8 +2,12 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:aeygiffarine/Utility/normal_dialog.dart';
+import 'package:aeygiffarine/models/post_model.dart';
+import 'package:aeygiffarine/models/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -53,7 +57,7 @@ class _AddPostState extends State<AddPost> {
             buildPostDetail(context),
             Container(
               margin: EdgeInsets.only(top: 16),
-              child: statusProcess ? SizedBox():CircularProgressIndicator(),
+              child: statusProcess ? SizedBox() : CircularProgressIndicator(),
             )
           ],
         ),
@@ -73,10 +77,10 @@ class _AddPostState extends State<AddPost> {
             detailPost.isEmpty) {
           normalDialog(context, 'Have Space ? Please Fill Every Blank');
         } else {
-         setState(() {
-           statusProcess = false;
+          setState(() {
+            statusProcess = false;
             uploadandInsertData();
-         });
+          });
         }
       },
       child: Icon(Icons.cloud_upload),
@@ -169,13 +173,50 @@ class _AddPostState extends State<AddPost> {
 
   Future<Null> uploadandInsertData() async {
     await Firebase.initializeApp().then((value) async {
-await FirebaseAuth.instance.authStateChanges().listen((event) {
-  String uid = event.uid;
-  print('uid ===>>> $uid');
-  int i= Random().nextInt(1000000);
-  String nameFile = '$uid$i.jpg';
-  print('nameFile ==>> $nameFile');
-});
+      await FirebaseAuth.instance.authStateChanges().listen((event) async {
+        String uid = event.uid;
+        print('uid ===>>> $uid');
+
+        await FirebaseFirestore.instance
+            .collection('user')
+            .doc(uid)
+            .snapshots()
+            .listen((event) async{
+
+            UserModel userModel = UserModel.fromMap(event.data());
+            String namePost = userModel.name;
+
+
+          int i = Random().nextInt(1000000);
+          String nameFile = '$uid$i.jpg';
+          print('nameFile ==>> $nameFile');
+
+          FirebaseStorage storage = FirebaseStorage.instance;
+          var refer = storage.ref().child('post/$nameFile');
+          UploadTask task = refer.putFile(file);
+          await task.whenComplete(() async {
+            //print('upload Success');
+            String urlImage = await refer.getDownloadURL();
+            print('Uplodad Success UrlImage ==>> $urlImage');
+
+            PostModel model = PostModel(
+                title: titlePost,
+                detail: detailPost,
+                uidPost: uid,
+                timePost: timePost,
+                urlImage: urlImage,namePost: namePost);
+
+            Map<String, dynamic> data = model.toMap();
+            await FirebaseFirestore.instance
+                .collection('post')
+                .doc()
+                .set(data)
+                .then(
+                  (value) => Navigator.pop(context),
+                );
+          });
+        });
+      });
     });
   }
 }

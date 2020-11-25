@@ -15,6 +15,7 @@ class Myservice extends StatefulWidget {
 class _MyserviceState extends State<Myservice> {
   UserModel userModel;
   Widget currentWidget = ShowListPost();
+  String title = 'Show List Post';
 
   @override
   void initState() {
@@ -45,7 +46,7 @@ class _MyserviceState extends State<Myservice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(title),),
       drawer: buildDrawer(),
       body: currentWidget,
     );
@@ -83,6 +84,7 @@ class _MyserviceState extends State<Myservice> {
       onTap: () {
         setState(() {
           currentWidget = ShowListPost();
+          title = 'Show List Post';
         });
         Navigator.pop(context);
       },
@@ -101,6 +103,7 @@ class _MyserviceState extends State<Myservice> {
       onTap: () {
         setState(() {
           currentWidget = Information();
+          title = 'Information';
         });
         Navigator.pop(context);
       },
